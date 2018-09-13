@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.NestedScrollingChild2;
 import android.support.v4.view.NestedScrollingChildHelper;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -64,7 +65,7 @@ public class NestedScrollCoordinatorLayout extends CoordinatorLayout implements 
 
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed, int type) {
-        dispatchNestedPreScroll(dx, dy, consumed, null);
+        dispatchNestedPreScroll(dx, dy, consumed, null, type);
         if (consumed[1] == 0) {
             super.onNestedPreScroll(target, dx, dy, consumed, type);
         }
@@ -74,7 +75,7 @@ public class NestedScrollCoordinatorLayout extends CoordinatorLayout implements 
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
         dispatchNestedPreScroll(dx, dy, consumed, null);
         if (consumed[1] == 0) {
-            super.onNestedPreScroll(target, dx, dy, consumed);
+            super.onNestedPreScroll(target, dx, dy, consumed, ViewCompat.TYPE_TOUCH);
         }
     }
 
@@ -146,7 +147,7 @@ public class NestedScrollCoordinatorLayout extends CoordinatorLayout implements 
 
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, @Nullable int[] consumed, @Nullable int[] offsetInWindow) {
-        return mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow);
+        return mChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, ViewCompat.TYPE_TOUCH);
     }
 
     @Override
